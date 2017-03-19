@@ -1,5 +1,7 @@
 ﻿# Fly Reader's Extensions
+
 You need to read [Legal Notices](Legal%20Notices.md) first.
+
 >温馨提示，本存储库中的所有代码在 MPL2.0 下发布，这意味着如果你需要修改本存储库下的代码的话修改的版本必须开源
 >
 >有关详情，请参阅 [Legal Notices](Legal%20Notices.md) 和中华人民共和国著作权法
