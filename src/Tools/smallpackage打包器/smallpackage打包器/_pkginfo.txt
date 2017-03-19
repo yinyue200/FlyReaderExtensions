@@ -1,0 +1,1 @@
+C:\Users\yinyu\Documents\Visual Studio 2015\Projects\smallpackage打包器\smallpackage打包器\AppPackages\smallpackage打包器_0.0.1.0\smallpackage打包器_0.0.1.0_x86_x64_arm.appxbundle

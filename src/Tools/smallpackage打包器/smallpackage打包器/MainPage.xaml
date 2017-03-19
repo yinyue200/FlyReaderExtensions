@@ -1,0 +1,19 @@
+﻿<Page
+    x:Class="smallpackage打包器.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:smallpackage打包器"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <TextBox x:Name="ant" Text="档案名"></TextBox>
+        <ComboBox x:Name="ccb" SelectedIndex="0">
+            <x:String>smalladdonpackage</x:String>
+            <x:String>smallpackage</x:String>
+            <x:String>smalldebugpackage</x:String>
+        </ComboBox>
+        <Button x:Name="bt1" Click="Button_Click">选择文件夹</Button>
+    </StackPanel>
+</Page>
