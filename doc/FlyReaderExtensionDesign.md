@@ -1,5 +1,7 @@
 # 越飞阅读插件格式
 
+*插件必须是ASCII兼容的格式，这意味着你不能使用UTF-16等编码，但UTF-8，GB18030,GB2312等是可以接受的格式*
+
 ## 第一部分
 
 >//yfb smalljscode 1.0.0.0 http://www.yinyue200.com/zh-cn/appList/yfxsrt/yfbfiles.aspx
@@ -23,4 +25,4 @@
 
 ## 第三部分
 
-待完成
+见demo
