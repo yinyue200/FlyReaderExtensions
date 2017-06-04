@@ -17,3 +17,9 @@ You need to read [Legal Notices](Legal%20Notices.md) first.
  * 经过修改的 [SiteD](https://github.com/noear/SiteD)（多多猫）插件 *仅有限的支持*
 
 >请注意，尽管越飞阅读提供多多猫插件有限的支持，但并没有使用 [SiteD](https://github.com/noear/SiteD) 中的任何代码，是根据 [SiteD 开发文档](http://sited.noear.org/dev/res/sited_dev_32_64.pdf)重新编写的引擎，因此没有标注SiteD版本号，也不必遵守其 [LICENSE](https://github.com/noear/SiteD/blob/master/LICENSE)
+
+### 编写越飞阅读的插件需要什么技能
+
+越飞阅读的插件一般使用 JavaScript 开发。
+
+所有平台都提供 ECMA 5.1 的支持。
