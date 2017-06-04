@@ -22,4 +22,4 @@ You need to read [Legal Notices](Legal%20Notices.md) first.
 
 越飞阅读的插件一般使用 JavaScript 开发。
 
-所有平台都提供 ECMA 5.1 的支持。
+所有平台都提供 ECMA 5.1 或更高版本的支持。
