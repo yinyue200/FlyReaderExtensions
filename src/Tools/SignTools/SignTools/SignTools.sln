@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.421
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignTools.WPF", "SignTools.WPF\SignTools.WPF.csproj", "{A60DD1D8-EBA5-4B4C-8A74-ADA334A266B0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A60DD1D8-EBA5-4B4C-8A74-ADA334A266B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A60DD1D8-EBA5-4B4C-8A74-ADA334A266B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A60DD1D8-EBA5-4B4C-8A74-ADA334A266B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A60DD1D8-EBA5-4B4C-8A74-ADA334A266B0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9553A0B2-DC10-4E17-A488-3FADC29E9D65}
+	EndGlobalSection
+EndGlobal

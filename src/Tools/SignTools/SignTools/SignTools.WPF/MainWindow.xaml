@@ -1,0 +1,20 @@
+﻿<Window x:Class="SignTools.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SignTools.WPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <StackPanel>
+        <TextBox x:Name="tb1" AcceptsReturn="True" Margin="0,10,0,0" Height="136" VerticalAlignment="Top"/>
+        <WrapPanel>
+            <Button Content="加载私钥" Click="Button_Click"/>
+            <Button>使用加载到的私钥生成数据的MAC</Button>
+            <Button Click="Button_Click_1">创建私钥</Button>
+            <Button Click="Button_Click_2" Content="显示私钥"/>
+            <Button Click="Button_Click_3" Content="显示公钥"/>
+            <Button Click="Button_Click_4">签名</Button>
+        </WrapPanel>
+    </StackPanel>
+</Window>
