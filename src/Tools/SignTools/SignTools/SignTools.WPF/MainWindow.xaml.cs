@@ -30,13 +30,13 @@ namespace SignTools.WPF
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             rSA = new RSACryptoServiceProvider();
-            rSA.KeySize = 4096;
             rSA.ImportCspBlob(tb1.Text.Split(',').Select(a => byte.Parse(a.Substring(2),System.Globalization.NumberStyles.AllowHexSpecifier)).ToArray());
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            rSA = new RSACryptoServiceProvider();
+            rSA = new RSACryptoServiceProvider(4096);
+            //rSA.KeySize = 4096;
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
@@ -50,12 +50,11 @@ namespace SignTools.WPF
         }
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
-            using (var sha512 = SHA512.Create())
-            {
-                var hash=sha512.ComputeHash(System.Text.Encoding.UTF8.GetBytes(tb1.Text));
-                var data = rSA.Encrypt(hash, false);
-                tb1.Text = Convert.ToBase64String(data);
-            }
+            var DATA = System.Text.Encoding.UTF8.GetBytes(tb1.Text);
+            var data = rSA.SignData(DATA, HashAlgorithmName.SHA512,RSASignaturePadding.Pkcs1);
+            tb1.Text = Convert.ToBase64String(data);
+
+            rSA.VerifyData(DATA, data, HashAlgorithmName.SHA512, RSASignaturePadding.Pkcs1);
         }
     }
 }
