@@ -16,7 +16,7 @@ You need to read [Legal Notices](Legal%20Notices.md) first.
 
  * 经过修改的 [SiteD](https://github.com/noear/SiteD)（多多猫）插件 *仅有限的支持*
 
- * 部分 [MyBookself](https://github.com/gedoor/MyBookshelf) 书籍源（1.5.4 以上版本）
+ * 部分 [MyBookself](https://github.com/gedoor/MyBookshelf) 书籍源（需要越飞阅读 1.5.4 以上版本）
 
 >尽管越飞阅读提供多多猫插件有限的支持，但并没有使用 [SiteD](https://github.com/noear/SiteD) 中的任何代码，是根据 [SiteD 开发文档](http://sited.noear.org/dev/res/sited_dev_32_64.pdf)重新编写的引擎，因此没有标注SiteD版本号，也不必遵守其 [LICENSE](https://github.com/noear/SiteD/blob/master/LICENSE)
 
