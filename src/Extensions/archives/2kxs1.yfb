@@ -1,0 +1,60 @@
+//yfb smalljscode 1.0.0.0 http://www.yinyue200.com/zh-cn/appList/yfxsrt/yfbfiles.aspx
+//packagename:2k小说
+//authorname:yinyue200.com
+//copyright:(c) 2016 yinyue200.com
+//usingnamespace:HtmlAgilityPackRT
+//supporturl:^http://www.2kxs.com/
+//searchname:2k小说
+//feedbackurl:mailto:yfreader@yinyue200.com
+//onAddonCenter:1
+//minreaderversion:1.3.133.0
+//version:1.0.0.1
+//end
+//packagename必须是唯一的
+//可以多次声明searchname,使用$分隔，这样阅读器就会多次调用getSiteSearchUri。也可以不声明，这样表示不支持搜索，只能使用网站解析功能。packagename需要在全软件内唯一。packagename应该可以作为文件夹的名称使用.usingnamespace代表引用的命名空间，多个命名空间用空格“ ”分隔。supporturl是支持网站的正则表达式，若不符合该表达式阅读器将不会调用该插件。也可以置空。但为了性能考虑，不要置空;minreaderversion表示最低阅读器版本
+var WebSiteEngine = {
+    createNew: function(nowurl,starturl){
+        var temp = {};
+        temp.siteName = "2k小说"
+        temp.getChapterContent = function (html) {
+            var hd = new HtmlAgilityPackRT.HtmlDocument();
+            hd.loadHtml(html);
+			var newtext= hd.documentNode.selectSingleNode("//p[@class='Text']").innerHtml;
+			var fgstr="tongzhi();</script>";
+			var firstindex=newtext.indexOf(fgstr)+fgstr.length;
+			newtext=newtext.substring(firstindex);
+            return HtmlAgilityPackRT.YFHelper.contentDecoding(newtext)//根据参数html返回章节内容
+        }
+        temp.getChapterList=function(html){
+            //根据参数html返回章节列表，以\r\n分隔
+            //例如
+            var hd = new HtmlAgilityPackRT.HtmlDocument();
+            hd.loadHtml(html);
+            return HtmlAgilityPackRT.YFHelper.helpForeachNodes(hd.documentNode.selectNodes("//dl[@class='book']/dd/*[1 and @href and local-name()='a']"),nowurl)
+        }
+        temp.getBookInfo=function(html){
+            //根据参数html返回书籍简介
+            var hd = new HtmlAgilityPackRT.HtmlDocument();
+            hd.loadHtml(html);
+			var auther=HtmlAgilityPackRT.YFHelper.htmlDecode(hd.documentNode.selectSingleNode("//address[@class='author']/a").innerText);
+            var vl= { name: HtmlAgilityPackRT.YFHelper.htmlDecode(hd.documentNode.selectSingleNode("//h1").innerText), infotext:"", authorName: auther,bookImagePath:"" };
+			return vl;
+        }
+        temp.getSiteSearchUri=function(searchcontent,searchpoint){
+            return {name:"http://zhannei.baidu.com/cse/search?s=5383193680697477613&q="+encodeURIComponent(searchcontent)};
+        }
+        temp.isChapterListPage=function(){//可选，默认返回true
+            return true;
+        }
+        temp.getNewUriToGo=function(htmlcontent){//可选，返回NULL即不需要重定向
+            return null; //重定向的新URL
+        }
+        temp.getChapterContentWithContext=function(htmlcontent,context){//可选
+            return "小说内容";
+        }
+        temp.isSupport=function(){//可选，指示当前URL是否是支持的URL，若不支持，阅读器可能会使用其它解析程序来解析内容
+            return true;
+        }
+        return temp;
+    }
+};

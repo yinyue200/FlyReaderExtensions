@@ -1,0 +1,88 @@
+//yfb smalljscode 1.0.0.0 http://www.yinyue200.com/zh-cn/appList/yfxsrt/yfbfiles.aspx
+//packagename:名著小说阅读网
+//authorname:yinyue200.com
+//copyright:(c) 2016 yinyue200.com
+//usingnamespace:HtmlAgilityPackRT Yinyue200
+//supporturl:^http://www.mzhu8.com
+//searchname:名著小说阅读网
+//feedbackurl:mailto:yfreader@yinyue200.com
+//onAddonCenter:1
+//version:1.0.0.2
+//minreaderversion:1.3.133.0
+//end
+//packagename必须是唯一的
+//可以多次声明searchname,使用$分隔，这样阅读器就会多次调用getSiteSearchUri。也可以不声明，这样表示不支持搜索，只能使用网站解析功能。packagename需要在全软件内唯一。packagename应该可以作为文件夹的名称使用.usingnamespace代表引用的命名空间，多个命名空间用空格“ ”分隔。supporturl是支持网站的正则表达式，若不符合该表达式阅读器将不会调用该插件。也可以置空。但为了性能考虑，不要置空;minreaderversion表示最低阅读器版本
+var WebSiteEngine = {
+    createNew: function(nowurl,starturl){
+        var temp = {};
+        temp.siteName = "名著小说阅读网"
+		temp.isHtmlChapterContent=true;
+        temp.getChapterContent = function (html) {
+			return html;
+        }
+        temp.getChapterList=function(html){
+            //根据参数html返回章节列表，以\r\n分隔
+            //例如
+            var hd = new HtmlAgilityPackRT.HtmlDocument();
+            hd.loadHtml(html);
+			var list=hd.documentNode.selectNodes("//div[@id='list']//a[@href]");
+			var key="";
+			var value="";
+			var reg= new Yinyue200.Foundation.JSHelper.RexExp.Regex("/(?<Value>\\d+)/(?<Value2>\\d+)");
+			for(var i=0;i<list.length;i++){
+				var item={};
+				item.url="http://www.mzhu8.com/modules/article/show.php";	
+				var match=reg.easyMatchGroup(list[i].attributes.getAttribute("href").value);				
+				item.postdata=HtmlAgilityPackRT.YFHelper.convertStringToBase64("aid="+match.lookup("Value")+"&cid="+match.lookup("Value2")+"&r="+Math.random());
+				key=key+list[i].innerText+"\r\n";
+				value=value+"\v"+HtmlAgilityPackRT.YFHelper.convertStringToBase64(JSON.stringify(item))+"\r\n";
+			}
+            return {key:key,value:value};
+        }
+        temp.getBookInfo=function(html){
+            //根据参数html返回书籍简介
+            var hd = new HtmlAgilityPackRT.HtmlDocument();
+            hd.loadHtml(html);
+			var auther=HtmlAgilityPackRT.YFHelper.htmlDecode( hd.documentNode.selectSingleNode("//span[@class='i_author']").innerText);
+            var vl= { name: HtmlAgilityPackRT.YFHelper.htmlDecode(hd.documentNode.selectSingleNode("//h1").innerText), infotext:HtmlAgilityPackRT.YFHelper.wucuozy( hd.documentNode.selectSingleNode("//div[@class='book_info']/p").innerHtml), authorName: HtmlAgilityPackRT.YFHelper.htmlDecode(auther.substring(auther.indexOf("：")+1)) };
+			try{vl.bookImagePath=HtmlAgilityPackRT.YFHelper.htmlDecode(hd.documentNode.selectSingleNode("//div[@id='fmimg']/img").attributes.getAttribute("src").value);}catch(e){vl.bookImagePath=""}
+			return vl;
+        }
+		temp.getBookListFormSiteSearch=function(htmlcontent,searchcontent){
+			
+			var hd = new HtmlAgilityPackRT.HtmlDocument();
+            hd.loadHtml(htmlcontent);
+			var fresh=hd.documentNode.selectSingleNode("//meta[@http-equiv='refresh']");
+			var list=[];
+			if(fresh!=null){
+				var textss=fresh.attributes.getAttribute("content").value;
+				var index=textss.indexOf(";url=")+5;
+				list.push({ name: searchcontent, path: HtmlAgilityPackRT.YFHelper.formAturl(textss.substring(index),nowurl), info: "" });
+				return list;
+			}
+			
+			var list1=hd.documentNode.selectNodes("//td[@class='odd']//a");
+			var list2=hd.documentNode.selectNodes("//td[@class='even']//a");
+			var list3=hd.documentNode.selectNodes("//td[@class='odd' and @style='text-align: center;']");
+			for(var i=0;i<list1.length;i++){
+			    list.push({ name: list1[i].innerText, path: HtmlAgilityPackRT.YFHelper.formAturl(list1[i].attributes.getAttribute("href").value,nowurl), info: list2[i].innerText+list3[i].innerText });
+			}
+			return list;
+            //return new Array({ name: '小说1名字', path: "链接", info: "概览" }, { name: '小说2名字', path: "链接", info: "概览" },{name:'小说3名字',path:"链接",info:"概览"});//示例
+            //这里给出的小说地址在用户点击项目后将通过isChapterListPage函数，若该函数返回true，将直接进入书籍简介页引发getBookInfo函数，若返回false，将访问地址获取可能的重定向(来自重定向请求或者getNewUriToGo函数)来重新isChapterListPage
+        }
+        temp.getSiteSearchUri=function(searchcontent,searchpoint){
+            return {name:"http://www.mzhu8.com/modules/article/search.php?searchtype=articlename&searchkey="+HtmlAgilityPackRT.YFHelper.urlEncodeWithCodePage(searchcontent,54936)};
+        }
+        temp.isChapterListPage=function(){//可选，默认返回true
+            return true;
+        }
+        temp.getNewUriToGo=function(htmlcontent){//可选，返回NULL即不需要重定向
+            return null; //重定向的新URL
+        }
+        temp.isSupport=function(){//可选，指示当前URL是否是支持的URL，若不支持，阅读器可能会使用其它解析程序来解析内容
+            return true;
+        }
+        return temp;
+    }
+};
